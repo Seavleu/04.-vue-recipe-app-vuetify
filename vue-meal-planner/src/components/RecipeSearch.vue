@@ -7,11 +7,14 @@ import type { RecipeResults } from "../types/spoonacular";
 const emits = defineEmits (["recipeSelected"]);
 
 const searchQuery: Ref<string> = ref("");
-const searchResults: Ref<RecipeResults> [] | [] > = ref([]);
+// const searchResults: Ref<RecipeResults[]> = ref([]);
+const searchResults: Ref<RecipeResults[]> = ref([]);
+
+
 
 const getSearchResults = async () => {
     const results = await useRecipeSearch(searchQuery.value);
-    searchResults.values = results;
+    searchResults.value = results;
 }
 
 let timeout: ReturnType<typeof setTimeout>;

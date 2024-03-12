@@ -1,20 +1,20 @@
-import { createRouter, createWebHistory } from 'vue-router';
-
+import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
-    path: '/:page?',
-    component: () => import('../layouts/default/Default.vue')
+    path: '/',
+    component: () => import('../layouts/default/Default.vue'),
     children: [
       {
         path: '',
         name: 'Home',
-        component: () => import(/* webpackChunkName: "home" */ '@/views')
-      },
+        component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+ },
       {
-        path: '/comics/:id',
-        name: 'comic',
-        component: () => import('/views/RecipesView.vue')
-      }
-    ]
-  }
+        path: 'recipes',
+        name: 'Recipes',
+        component: () => import('../views/RecipesView.vue')
+      },
+    ],
+  },
 ]
+// …abbreviated

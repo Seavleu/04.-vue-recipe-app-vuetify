@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import AppLink from '../../components/AppLink.vue';
+</script>
+
 <template>
   <v-app-bar flat>
     <v-btn id="hamburger-activator" icon="mdi-menu"> </v-btn>
@@ -5,18 +9,20 @@
       <v-list>
         <v-list-item>
           <v-btn flat block>
-            <router-link 
+            <app-link to="/">Home</app-link>
+            <!-- <router-link 
             to="/"
             >
               Home
-            </router-link>
+            </router-link> -->
           </v-btn>
-            <v-btn flat block>
-              <router-link 
+            <v-btn flat block> 
+              <app-link to="/recipes">Recipes</app-link>
+              <!-- <router-link
               to="/recipes"
               >
               Recipes
-            </router-link>
+            </router-link> -->
           </v-btn>
         </v-list-item>
       </v-list>

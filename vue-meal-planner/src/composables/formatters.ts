@@ -21,13 +21,11 @@ const getOrdinalSuffix = (day: number): string => {
     return "th";
 };
 
-export const useFormatDate = (dateString: string): string => {
-    const date = new Date(dateString);
+export const useFormatDate = (date: Date): string => {
     const day = date.getDate();
-    // Fixed typo in "default"
-    const month = date.toLocaleDateString("default", { month: "long" });
+    const month = date.toLocaleString("default", { month: "long" });
     const ordinal = getOrdinalSuffix(day);
+
     return `${day}${ordinal} of ${month}`;
 };
-
 

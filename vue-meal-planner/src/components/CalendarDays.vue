@@ -10,32 +10,32 @@ import RecipeSearch from "@/components/RecipeSearch.vue";
 
 // Original Array
 interface Today {
-  id: number;
-  title: string;
-  readyInMinutes: number;
+    id: number;
+    title: string;
+    readyInMinutes: number;
 }
 
 interface Card {
-  date: Date;
-  content: string;
-  today: Today[];
+    date: Date;
+    content: string;
+    today: Today[];
 }
 
 const props = defineProps({
-  date: {
-    type: Date,
-    required: true,
-  },
-  days: {
-    type: Number,
-    required: false,
-    default: 7,
-  },
-  recipes: {
-    type: Array,
-    required: false,
-    value: [],
-  },
+    date: {
+        type: Date,
+        required: true,
+    },
+    days: {
+        type: Number,
+        required: false,
+        default: 7,
+    },
+    recipes: {
+        type: Array,
+        required: false,
+        value: [],
+    },
 });
 
 const generateCards = (startDate: Date, numberOfDays: number): Card[] => {
@@ -87,6 +87,17 @@ const insertRecipeOnDay = (recipe: RecipeResults) => {
         recipeDialogClose();
     }
 };
+const removeRecipeFromDay = (recipe: { id: number }, date: Date): void => {
+    cards.value = cards.value.map((card) => {
+        if (card.date.getTime() === date.getTime()) {
+            return {
+                ...card,
+                today: card.today.filter((today) => today.id !== recipe.id),
+            };
+        }
+        return card;
+    });
+};
 </script>
 
 <template>
@@ -99,8 +110,9 @@ const insertRecipeOnDay = (recipe: RecipeResults) => {
         <tbody>
             <tr v-for="card in cards" :key="card.date.toString()">
                 <td class="py-4">
-                    {{ card.content }}
-                    <!-- <calendar-card :card="card" @daySelected="recipeDialogOpen" /> -->
+                    <!-- {{ card.content }} -->
+                    <calendar-card :card="card" @daySelected="recipeDialogOpen" 
+                    @recipeRemoved="removeRecipeFromDay" />
                 </td>
             </tr>
         </tbody>

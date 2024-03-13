@@ -14,7 +14,7 @@
     "pinia": "^2.1.7",
     "roboto-fontface": "*",
     "vue": "^3.4.21",
-    "vuetify": "^3.5.8"
+    "vuetify": "^3.5.9"
   },
   "devDependencies": {
     "@babel/types": "^7.24.0",

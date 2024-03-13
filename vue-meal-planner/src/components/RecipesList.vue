@@ -1,51 +1,31 @@
-<!-- *About: This will display both past and future recipe -->
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import type { Ref } from "vue";
-
+import { storeToRefs } from "pinia";
 import type { Recipe } from "@/types/spoonacular";
-interface RecipeList extends Recipe {
-  date: Date;
-}
+
+
+import { usePlannerStore } from "@/stores/planner";
+const store = usePlannerStore();
 
 import RecipeTable from "./RecipeTable.vue";
+import CookingInstructions from "./CookingInstructions.vue";
+import AppLink from "./AppLink.vue";
 
-// return a date in the future:
-const addDays = (days: number): Date => {
-  const date = new Date();
-  date.setDate(date.getDate() + days);
-  return date;
+const { pastRecipes, futureRecipes } = storeToRefs(store);
+
+const dialogVisible: Ref<boolean> = ref(false);
+const selectedRecipe: Ref<Recipe | null> = ref(null);
+
+const openPreview = (recipe: Recipe): void => {
+  selectedRecipe.value = recipe;
+  dialogVisible.value = true;
 };
 
-// generate some mock data for now:
-const recipes = [
-  { id: 1, title: "test", date: addDays(1) },
-  { id: 2, title: "test2", date: addDays(1) },
-  { id: 2, title: "test3", date: addDays(-1) },
-];
-
-const openPreview = (recipe: { title: string }): void => {
-  console.log(opening recipe ${recipe.title});
-};
-
-const pastRecipes = computed(() =>
-  recipes.filter((recipe: RecipeList) => {
-    const date = new Date(recipe.date);
-    return date < new Date();
-  })
-);
-
-const futureRecipes = computed(
-  () =>
-    recipes.filter((recipe: RecipeList) => {
-      const date = new Date(recipe.date);
-      return date >= new Date();
-    }) as RecipeList[]
-);
 const tab: Ref<string> = ref("upcoming");
 
 onMounted(() => {
-  if (futureRecipes.value.length === 0) {
+  if (futureRecipes.length === 0) {
     tab.value = "past";
   }
 });
@@ -54,7 +34,7 @@ onMounted(() => {
   <div v-if="pastRecipes.length === 0 && futureRecipes.length === 0">
     No recipes yet. Add some to your planner!
   </div>
-  <div v-if="true">
+  <div v-else>
     <v-tabs v-model="tab" color="deep-purple-accent-4" align-tabs="center">
       <v-tab value="past" :disabled="pastRecipes.length === 0">Past</v-tab>
       <v-tab value="upcoming" :disabled="futureRecipes.length === 0"
@@ -78,5 +58,20 @@ onMounted(() => {
         />
       </v-window-item>
     </v-window>
+
+    <v-dialog v-model="dialogVisible" class="dialog" scrollable>
+      <v-card v-if="selectedRecipe">
+        <cooking-instructions :id="selectedRecipe.id" />
+        <v-card-actions>
+          <v-btn >
+            <app-link :to="`/recipe/${selectedRecipe.id}`"
+              >Cooking instructions</app-link
+            ></v-btn
+          >
+          <v-spacer />
+          <v-btn @click="dialogVisible = false" icon="mdi-close"></v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>

@@ -14,6 +14,8 @@ declare module 'vue' {
     CookingInstructions: typeof import('./src/components/CookingInstructions.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     MealPlanner: typeof import('./src/components/MealPlanner.vue')['default']
+    RatingList: typeof import('./src/components/RatingList.vue')['default']
+    RecipeRating: typeof import('./src/components/RecipeRating.vue')['default']
     RecipeSearch: typeof import('./src/components/RecipeSearch.vue')['default']
     RecipesList: typeof import('./src/components/RecipesList.vue')['default']
     RecipeTable: typeof import('./src/components/RecipeTable.vue')['default']

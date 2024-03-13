@@ -11,6 +11,7 @@ declare module 'vue' {
     AppLoader: typeof import('./src/components/AppLoader.vue')['default']
     CalendarCard: typeof import('./src/components/CalendarCard.vue')['default']
     CalendarDays: typeof import('./src/components/CalendarDays.vue')['default']
+    CookingInstructions: typeof import('./src/components/CookingInstructions.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     MealPlanner: typeof import('./src/components/MealPlanner.vue')['default']
     RecipeSearch: typeof import('./src/components/RecipeSearch.vue')['default']

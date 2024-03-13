@@ -1,14 +1,13 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 const props = defineProps({
-    to: {
-        type: String,
-        required: true
-    },
+  to: {
+    type: String,
+    required: true,
+  },
 });
 </script>
-
 <template>
-    <router-link :to="props.to" class="text-light-blue">
+    <router-link :to="to" class="text-light-blue">
         <slot></slot>
     </router-link>
 </template>

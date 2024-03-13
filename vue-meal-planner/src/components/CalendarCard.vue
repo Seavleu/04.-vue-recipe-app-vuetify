@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { formatDate } from "../composables/formatters";
+import { useFormatDate } from "../composables/formatters";
 
 
+// Emit function to signal parent components of selected day
 const emits = defineEmits(["daySelected"]);
 
+// Directly call this function when a day is selected, passing the card object 
 const addRecipesToDay = (card: Card): void => {
     emits("daySelected", card);
 }
 
+// Card interface for TypeScript type checking
 interface Card {
     title: string;
     date: string;

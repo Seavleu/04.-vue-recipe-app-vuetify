@@ -17,14 +17,3 @@ export const useCacheStore = defineStore('cache', () => {
    // Return Both Fucntions
    return {cacheData, cachedData}
 });
-
-
-
-// export const useCacheStore = defineStore('cache', () => {
-//     // Cache data 
-//     const cacheData = () : void => {}
-//     const cachedData = () : void => {}
-//     // Return Cache data
-//     return {cacheData, cachedData}
-//  });
-
